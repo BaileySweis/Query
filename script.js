@@ -1,15 +1,17 @@
-
 const express = require('express');
-const mysql = require('mysql');
+const sql = require('mssql');
 
 const app = express();
 
-// Define the Google Cloud SQL configuration
+// Define the MSSQL configuration
 const config = {
   user: 'cis455vgg',
   password: 'CIS$%%',
+  server: 'gifted-airport-382516:us-west3:cis455vgg',
   database: 'VGG455',
-  socketPath: '/cloudsql/gifted-airport-382516:us-west3:cis455vgg',
+  options: {
+    encrypt: true // Use encryption
+  }
 };
 
 // Define the SQL query to retrieve data from the database
@@ -17,20 +19,32 @@ const query = 'SELECT ProductName, UnitPrice, UnitsInStock, CategoryName FROM `g
 
 // Create a route that returns the data in JSON format
 app.get('/data', (req, res) => {
-  const connection = mysql.createConnection(config);
-  connection.query(query, function (error, results, fields) {
-    if (error) {
-      console.error(error);
+  sql.connect(config, (err) => {
+    if (err) {
+      console.error(err);
       res.status(500).send('Internal server error');
-    } else {
-      res.json(results);
+      return;
     }
-    connection.end();
+
+    // Create a request object and execute the SQL query
+    const request = new sql.Request();
+    request.query(query, (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Internal server error');
+        return;
+      }
+
+      // Return the results in JSON format
+      res.json(result.recordset);
+
+      // Close the MSSQL connection
+      sql.close();
+    });
   });
 });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+app.listen(3000, () => {
+  console.log('Server started on port 3000');
 });
