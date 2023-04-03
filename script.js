@@ -9,7 +9,7 @@ const config = {
   user: 'cis455vgg',
   password: 'CIS$%%',
   database: 'VGG455',
-  socketPath: '/cloudsql/gifted-airport-382516:us-west3:cis455vgg,
+  socketPath: '/cloudsql/gifted-airport-382516:us-west3:cis455vgg',
 };
 
 // Define the SQL query to retrieve data from the database
