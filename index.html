@@ -1,10 +1,22 @@
 <html>
   <head>
-    <title>My Google Cloud SQL </title>
+    <title>My Google Cloud SQL Webpage</title>
   </head>
   <body>
     <h1>My Google Cloud SQL Webpage</h1>
     <div id="results"></div>
-    <script src="script.js"></script>
+    <script>
+      fetch('/data')
+        .then((response) => response.json())
+        .then((data) => {
+          const resultsDiv = document.getElementById('results');
+          data.forEach((result) => {
+            const resultDiv = document.createElement('div');
+            resultDiv.innerHTML = `ID: ${result.id} - Name: ${result.name}`;
+            resultsDiv.appendChild(resultDiv);
+          });
+        })
+        .catch((error) => console.error(error));
+    </script>
   </body>
 </html>
