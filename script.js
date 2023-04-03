@@ -1,4 +1,4 @@
-npm install mysql
+
 const express = require('express');
 const mysql = require('mysql');
 
