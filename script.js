@@ -7,7 +7,7 @@ const app = express();
 const config = {
   user: 'cis455vgg',
   password: 'CIS$%%',
-  server: 'gifted-airport-382516:us-west3:cis455vgg',
+  server: ':34.106.124.233,1433',
   database: 'VGG455',
   options: {
     encrypt: true // Use encryption
