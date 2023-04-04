@@ -2,7 +2,7 @@ const http = require('http');
 const sql = require('mssql');
 
 const config = {
-  driver: 'ODBC Driver 17 for SQL Server',
+  driver: 'JDBC Driver 17 for SQL Server',
   server: 'ML-RefVm-526995',
   database: 'GVV2',
   options: {
